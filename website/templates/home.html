@@ -16,7 +16,7 @@
   <div class="container mt-5">
     <div class="row">
       <div class="col-md-10 offset-md-1 center-box">
-        <form id="thesisForm" method="POST" action="/">
+        <form id="thesisForm" method="POST" action="/backend"> <!-- Updated action attribute -->
           <div class="mb-3">
             <label for="thesisTitle" class="form-label">Thesis Title</label>
             <textarea class="form-control" id="thesisTitle" name="thesis_title" rows="3"></textarea>
@@ -31,48 +31,19 @@
     </div>
   </div>
 
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ messages[0] }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endif %}
+  {% endwith %}
+
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  
-  <script>
-    // Submit the form to the Flask backend
-    document.addEventListener('DOMContentLoaded', function() {
-      document.querySelector('#thesisForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        // Retrieve the thesis title and abstract values
-        var thesisTitle = document.getElementById('thesisTitle').value;
-        var thesisAbstract = document.getElementById('thesisAbstract').value;
-
-        // Send a POST request to the Flask backend
-        fetch('/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            thesis_title: thesisTitle,
-            thesis_abstract: thesisAbstract
-          })
-        })
-        .then(function(response) {
-          if (response.ok) {
-            return response.text();
-          } else {
-            throw new Error('Error: ' + response.status);
-          }
-        })
-        .then(function(data) {
-          console.log(data);
-          // Handle the response from the backend if needed
-        })
-        .catch(function(error) {
-          console.log(error);
-          // Handle any error that occurs during the request
-        });
-      });
-    });
-  </script>
 </body>
 </html>

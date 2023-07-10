@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <title>Bootstrap Design</title>
+  <style>
+    .center-box {
+      margin: 0 auto;
+      float: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-10 offset-md-1 center-box">
+        <form id="thesisForm" method="POST" action="/">
+          <div class="mb-3">
+            <label for="thesisTitle" class="form-label">Thesis Title</label>
+            <textarea class="form-control" id="thesisTitle" name="thesis_title" rows="3"></textarea>
+          </div>
+          <div class="mb-5">
+            <label for="thesisAbstract" class="form-label">Thesis Abstract</label>
+            <textarea class="form-control" id="thesisAbstract" name="thesis_abstract" rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  
+  <script>
+    // Submit the form to the Flask backend
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelector('#thesisForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Retrieve the thesis title and abstract values
+        var thesisTitle = document.getElementById('thesisTitle').value;
+        var thesisAbstract = document.getElementById('thesisAbstract').value;
+
+        // Send a POST request to the Flask backend
+        fetch('/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            thesis_title: thesisTitle,
+            thesis_abstract: thesisAbstract
+          })
+        })
+        .then(function(response) {
+          if (response.ok) {
+            return response.text();
+          } else {
+            throw new Error('Error: ' + response.status);
+          }
+        })
+        .then(function(data) {
+          console.log(data);
+          // Handle the response from the backend if needed
+        })
+        .catch(function(error) {
+          console.log(error);
+          // Handle any error that occurs during the request
+        });
+      });
+    });
+  </script>
+</body>
+</html>

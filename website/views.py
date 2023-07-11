@@ -5,7 +5,8 @@ views = Blueprint('views', __name__)
 
 @views.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template('home.html')
+    theses = Thesis.query.all()
+    return render_template('home.html', theses=theses)
 
 
 @views.route('/backend', methods=['GET', 'POST'])
@@ -19,4 +20,5 @@ def backend():
         flash('Thesis saved successfully')  # Store success message
         return redirect('/')  # Redirect to home page
 
-
+    theses = Thesis.query.all()
+    return render_template('home.html', theses=theses)

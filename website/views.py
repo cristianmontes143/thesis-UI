@@ -5,7 +5,12 @@ views = Blueprint('views', __name__)
 
 @views.route('/', methods=['GET', 'POST'])
 def home():
-    theses = Thesis.query.all()
+    if request.method == 'POST':
+        search_query = request.form['search_query']
+        theses = Thesis.query.filter(Thesis.title.ilike(f'%{search_query}%')).all()
+    else:
+        theses = Thesis.query.all()
+
     return render_template('home.html', theses=theses)
 
 

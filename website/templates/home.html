@@ -25,8 +25,19 @@
             <label for="thesisAbstract" class="form-label">Thesis Abstract</label>
             <textarea class="form-control" id="thesisAbstract" name="thesis_abstract" rows="3"></textarea>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-success">Submit</button>
         </form>
+
+        
+
+        <form id="thesisForm" method="POST" action="/">
+          <div class="mb-3">
+            <label for="searchQuery" class="form-label">Search</label>
+            <input type="text" class="form-control" id="searchQuery" name="search_query">
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
 
         {% with messages = get_flashed_messages() %}
         {% if messages %}

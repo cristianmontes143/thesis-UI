@@ -13,6 +13,25 @@ def home():
 
     return render_template('home.html', theses=theses)
 
+@views.route('/update/<int:thesis_id>', methods=['POST'])
+def update(thesis_id):
+    thesis = Thesis.query.get_or_404(thesis_id)
+    db.session.commit()
+    flash('Thesis updated successfully')
+    return redirect('/')
+
+@views.route('/delete/<int:thesis_id>', methods=['POST'])
+def delete(thesis_id):
+    thesis = Thesis.query.get_or_404(thesis_id)
+    db.session.delete(thesis)
+    db.session.commit()
+    flash('Thesis deleted successfully')
+    return redirect('/')
+
+@views.route('/view-all', methods=['POST'])
+def view_all():
+    theses = Thesis.query.all()
+    return render_template('home.html', theses=theses)
 
 @views.route('/backend', methods=['GET', 'POST'])
 def backend():

@@ -56,6 +56,7 @@
                 <div class="input-group">
                   <input type="text" class="form-control" id="searchQuery" name="search_query">
                   <button type="submit" class="btn btn-primary mr-1">Search</button>
+                  <button type="button" class="btn btn-warning mr-1" id="toggleTableBtn" onclick="toggleTable()">Hide Table</button>
                   <button type="submit" class="btn btn-info">View All</button>
                 </div>
               </div>
@@ -63,7 +64,7 @@
           </div>
         </div>
 
-        <table class="table mt-5">
+        <table class="table mt-5" id="thesisTable">
           <thead>
             <tr>
               <th scope="col">ID</th>
@@ -79,7 +80,7 @@
                 <td>{{ thesis.title }}</td>
                 <td>{{ thesis.abstract }}</td>
                 <td>
-                  <form method="POST" action="/update/{{ thesis.id }}">
+                  <form method="GET" action="/update/{{ thesis.id }}">
                     <button type="submit" class="btn btn-primary">Update</button>
                   </form>
                   <h1></h1>
@@ -90,7 +91,13 @@
               </tr>
             {% endfor %}
           </tbody>
-        </table>          
+        </table>     
+        <script>
+          function toggleTable() {
+            var table = document.getElementById("thesisTable");
+            table.classList.toggle("d-none");
+          }
+        </script>
       </div>
     </div>
   </div>

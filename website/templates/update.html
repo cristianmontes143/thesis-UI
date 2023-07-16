@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <title>Update Thesis</title>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-10 offset-md-1 center-box">
+        <h1 class="text-center mb-5">Update Thesis</h1>
+        <form method="POST">
+          <div class="form-group mb-">
+            <label for="thesisTitle">Thesis Title</label>
+            <input type="text" class="form-control" id="thesisTitle" name="thesis_title" value="{{ thesis.title }}" required>
+          </div>
+          <div class="form-group mb-">
+            <label for="thesisAbstract">Thesis Abstract</label>
+            <textarea class="form-control" id="thesisAbstract" name="thesis_abstract" rows="3" required>{{ thesis.abstract }}</textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

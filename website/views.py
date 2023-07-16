@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect
 from .models import db, Thesis
-
+from flask import jsonify
 views = Blueprint('views', __name__)
 
 @views.route('/', methods=['GET', 'POST'])
@@ -13,12 +13,23 @@ def home():
 
     return render_template('home.html', theses=theses)
 
-@views.route('/update/<int:thesis_id>', methods=['POST'])
+@views.route('/toggle-table', methods=['POST'])
+def toggle_table():
+    hide_table = request.json.get('hide_table')
+    return jsonify({'hide_table': hide_table})
+
+@views.route('/update/<int:thesis_id>', methods=['GET', 'POST'])
 def update(thesis_id):
     thesis = Thesis.query.get_or_404(thesis_id)
-    db.session.commit()
-    flash('Thesis updated successfully')
-    return redirect('/')
+
+    if request.method == 'POST':
+        thesis.title = request.form['thesis_title']
+        thesis.abstract = request.form['thesis_abstract']
+        db.session.commit()
+        flash('Thesis updated successfully')
+        return redirect('/')
+
+    return render_template('update.html', thesis=thesis)
 
 @views.route('/delete/<int:thesis_id>', methods=['POST'])
 def delete(thesis_id):
